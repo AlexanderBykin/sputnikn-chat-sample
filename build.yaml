@@ -1,0 +1,16 @@
+# FAQ: https://github.com/dart-lang/build/blob/master/docs/faq.md
+targets:
+  $default:
+    builders:
+      build_runner:
+        generate_for:
+          - lib/model/*.dart
+          - lib/model/**/*.dart
+          - lib/route/*.dart
+      json_serializable:
+        generate_for:
+          - lib/model/*.dart
+          - lib/model/**/*.dart
+      auto_route_generator:
+        generate_for:
+          - lib/route/*.dart

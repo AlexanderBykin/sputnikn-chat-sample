@@ -1,0 +1,22 @@
+{
+    "@@locale": "en",
+    "app_title": "Sputnik-N",
+    "chat_login_field_login": "Login",
+    "chat_login_field_password": "Password",
+    "chat_login_btn_auth": "Sign In",
+    "chat_list_title": "Chats",
+    "chat_list_empty_list": "There is no chats yet,\ncreate one with pressing +",
+    "chat_create_title": "Create chat",
+    "chat_create_field_title": "Room name",
+    "chat_create_btn_save": "Create",
+    "chat_thread_message_hint": "Type here...",
+    "chat_thread_unreaded_messages": "Unreaded messages",
+    "chat_thread_action_forward": "Forward",
+    "chat_thread_action_reply": "Reply",
+    "chat_thread_action_copy": "Copy",
+    "chat_thread_action_delete": "Delete",
+    "chat_thread_choose_media_title": "Add a Photo",
+    "chat_thread_choose_media_btn_cancel": "Cancel",
+    "chat_thread_choose_media_source_camera": "Take a Picture",
+    "chat_thread_choose_media_source_gallery": "Choose From Library"
+}

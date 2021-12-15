@@ -1,0 +1,22 @@
+{
+    "@@locale": "ru",
+    "app_title": "Sputnik-N",
+    "chat_login_field_login": "Логин",
+    "chat_login_field_password": "Пароль",
+    "chat_login_btn_auth": "Войти",
+    "chat_list_title": "Чаты",
+    "chat_list_empty_list": "Нету доступных чатов,\nсоздайте один нажав +",
+    "chat_create_title": "Создание чата",
+    "chat_create_field_title": "Название комнаты",
+    "chat_create_btn_save": "Создать",
+    "chat_thread_message_hint": "Пишите тут...",
+    "chat_thread_unreaded_messages": "Непрочитанные сообщения",
+    "chat_thread_action_forward": "Переслать",
+    "chat_thread_action_reply": "Ответить",
+    "chat_thread_action_copy": "Копировать",
+    "chat_thread_action_delete": "Удалить",
+    "chat_thread_choose_media_title": "Добавить изображение",
+    "chat_thread_choose_media_btn_cancel": "Отмена",
+    "chat_thread_choose_media_source_camera": "Сделать Фото",
+    "chat_thread_choose_media_source_gallery": "Выбрать из Галереи"
+}
