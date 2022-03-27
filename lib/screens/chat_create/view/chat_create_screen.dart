@@ -121,6 +121,11 @@ class _ChatCreateScreenState extends State<ChatCreateScreen>
           borderSide: BorderSide.none,
         ),
       ),
+      onChanged: (value) {
+        context.read<ChatCreateBloc>().add(
+              ChangeRoomNameSubmitted(_titleController.text),
+            );
+      },
     );
   }
 
@@ -156,11 +161,7 @@ class _ChatCreateScreenState extends State<ChatCreateScreen>
       margin: const EdgeInsets.all(16),
       child: TextButton(
         onPressed: () {
-          context.read<ChatCreateBloc>().add(
-                CreateChatSubmitted(
-                  title: _titleController.text,
-                ),
-              );
+          context.read<ChatCreateBloc>().add(CreateChatSubmitted());
         },
         child: Text(
           AppLocalizations.of(context)!.chat_create_btn_save,

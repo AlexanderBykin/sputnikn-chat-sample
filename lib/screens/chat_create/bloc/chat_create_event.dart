@@ -5,18 +5,16 @@ abstract class ChatCreateEvent {}
 
 class FetchUsersSubmitted extends ChatCreateEvent {}
 
+class ChangeRoomNameSubmitted extends ChatCreateEvent {
+  ChangeRoomNameSubmitted(this.roomName);
+
+  final String roomName;
+}
+
 class MemberChangeSelectionSubmitted extends ChatCreateEvent {
   MemberChangeSelectionSubmitted(this.member);
 
   final UserDetail member;
 }
 
-class CreateChatSubmitted extends ChatCreateEvent {
-  CreateChatSubmitted({
-    required this.title,
-    this.avatar,
-  });
-
-  final String title;
-  final String? avatar;
-}
+class CreateChatSubmitted extends ChatCreateEvent {}

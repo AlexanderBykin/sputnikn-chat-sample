@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
@@ -12,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:sputnikn_chatsample/core/core.dart';
+import 'package:sputnikn_chatsample/route/app_router.gr.dart';
 import 'package:sputnikn_chatsample/screens/chat_thread/bloc/chat_thread_bloc.dart';
 import 'package:sputnikn_chatsample/screens/chat_thread/models/models.dart';
 import 'package:sputnikn_chatsample/screens/chat_thread/view/widgets/widgets.dart';
@@ -32,10 +34,10 @@ class ChatThreadScreen extends StatefulWidget {
   ) {
     return MaterialPageRoute(
       builder: (_) {
-        //page.arguments
+        final args = page.arguments as ChatThreadScreenRouteArgs?;
         return BlocProvider<ChatThreadBloc>(
           create: (ctx) => ChatThreadBloc(
-            chatId: context.routeData.pathParams.getString('chatId', ''),
+            chatId: args!.chatId,
             chatClientRepository: ctx.read<ChatClientRepository>(),
             mediaCacheManager: ctx.read<MediaCacheManager>(),
           ),
@@ -65,15 +67,13 @@ class _ChatThreadScreenState extends State<ChatThreadScreen>
       duration: kThemeAnimationDuration,
     );
     _hideFabAnimation.forward();
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      context.read<ChatThreadBloc>().add(FetchChatDetailSubmitted());
-      _itemPositionsListener.itemPositions.addListener(() {
-        context.read<ChatThreadBloc>().add(
-              ChangeScrollPositionSubmitted(
-                _itemPositionsListener.itemPositions.value,
-              ),
-            );
-      });
+    context.read<ChatThreadBloc>().add(FetchChatDetailSubmitted());
+    _itemPositionsListener.itemPositions.addListener(() {
+      context.read<ChatThreadBloc>().add(
+            ChangeScrollPositionSubmitted(
+              _itemPositionsListener.itemPositions.value,
+            ),
+          );
     });
   }
 
@@ -133,16 +133,16 @@ class _ChatThreadScreenState extends State<ChatThreadScreen>
       isMyMessage: message.senderId == authUser?.userId,
       onDownloadMedia: context.read<ChatThreadBloc>().onDownloadMedia,
       onForward: () {
-        debugPrint('>>> onForwardMessage');
+        log('>>> onForwardMessage');
       },
       onReply: () {
-        debugPrint('>>> onReplyMessage');
+        log('>>> onReplyMessage');
       },
       onCopy: () {
-        debugPrint('>>> onCopyMessage');
+        log('>>> onCopyMessage');
       },
       onDelete: () {
-        debugPrint('>>> onDeleteMessage');
+        log('>>> onDeleteMessage');
       },
     );
   }
@@ -341,6 +341,7 @@ class _ChatThreadScreenState extends State<ChatThreadScreen>
     return showDialog<void>(
       context: context,
       barrierDismissible: true,
+      useRootNavigator: false,
       barrierLabel: '',
       barrierColor: Colors.transparent,
       builder: (_) {
@@ -355,19 +356,19 @@ class _ChatThreadScreenState extends State<ChatThreadScreen>
             onDownloadMedia: event.onDownloadMedia,
             onForward: () {
               event.onForward();
-              AutoRouter.of(context).pop();
+              Navigator.of(context).pop();
             },
             onReply: () {
               event.onReply();
-              AutoRouter.of(context).pop();
+              Navigator.of(context).pop();
             },
             onCopy: () {
               event.onCopy();
-              AutoRouter.of(context).pop();
+              Navigator.of(context).pop();
             },
             onDelete: () {
               event.onDelete();
-              AutoRouter.of(context).pop();
+              Navigator.of(context).pop();
             },
           ),
         );

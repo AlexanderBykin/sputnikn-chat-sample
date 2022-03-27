@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
@@ -32,6 +33,7 @@ class ChatThreadBloc extends Bloc<ChatThreadEvent, ChatThreadState>
     on<ReceiveChatMessageSubmitted>(_onReceiveChatMessageSubmitted);
     on<ReceiveChatDetailSubmitted>(_onReceiveChatDetailSubmitted);
     on<AddNewChatMessageSubmitted>(_onAddNewChatMessageSubmitted);
+    on<ChangeScrollPositionSubmitted>(_onChangeScrollPositionSubmitted);
     addSubscription(
       _chatClientRepository.outChatMessages.listen((event) {
         if (event is RoomEventMessageResponse &&
@@ -105,11 +107,16 @@ class ChatThreadBloc extends Bloc<ChatThreadEvent, ChatThreadState>
     }
   }
 
-  void onScrollPositionChanged(Iterable<ItemPosition> position) {
-    final lastItem = position.lastOrNull;
+  void _onChangeScrollPositionSubmitted(
+    ChangeScrollPositionSubmitted event,
+    Emitter<ChatThreadState> emit,
+  ) {
+    final lastItem = event.position.lastOrNull;
+
     /// user scroll to top, try to load oldest messages
     if (lastItem?.index == state.messages.length - 1) {
       final lastUnreadTime = state.messages.lastOrNull?.timestamp;
+
       /// Don't spam sync messages if lastUnreadTime equals to state
       if (state.messages.isNotEmpty && state.lastUnreadTime != lastUnreadTime) {
         add(
@@ -179,8 +186,7 @@ class ChatThreadBloc extends Bloc<ChatThreadEvent, ChatThreadState>
       final unreadIndex = _findUnreadMarkerIndex(newMessages);
       final lastUnreadTime = _findUnreadMarkerTime(newMessages);
 
-      debugPrint(
-          '>>> messageEvents.len=${eventsMessage.length} systemEvents.len=${eventsSystem.length}');
+      log('>>> messageEvents.len=${eventsMessage.length} systemEvents.len=${eventsSystem.length}');
       emit(
         state.copyWith(
           messages: newMessages,

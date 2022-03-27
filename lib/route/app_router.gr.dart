@@ -12,7 +12,7 @@
 
 import 'package:auto_route/auto_route.dart' as _i2;
 import 'package:flutter/material.dart' as _i6;
-import 'package:sputnikn_chat_client/generated/chat_message.pb.dart' as _i7;
+import 'package:sputnikn_chat_client/sputnikn_chat_client.dart' as _i7;
 
 import '../screens/chat_create/view/chat_create_screen.dart' as _i4;
 import '../screens/chat_list/view/chat_list_screen.dart' as _i3;
@@ -38,7 +38,7 @@ class AppRouter extends _i2.RootStackRouter {
           routeData: routeData,
           child: const _i2.EmptyRouterPage(),
           transitionsBuilder: _i2.TransitionsBuilders.slideLeft,
-          durationInMilliseconds: 750,
+          durationInMilliseconds: 650,
           opaque: true,
           barrierDismissible: false);
     },
@@ -51,12 +51,12 @@ class AppRouter extends _i2.RootStackRouter {
           barrierDismissible: false);
     },
     ChatCreateScreenRoute.name: (routeData) {
-      return _i2.CustomPage<_i7.UserDetail?>(
+      return _i2.CustomPage<_i7.RoomDetail>(
           routeData: routeData,
           child: const _i4.ChatCreateScreen(),
           customRouteBuilder: _i4.ChatCreateScreen.route,
           transitionsBuilder: _i2.TransitionsBuilders.slideLeft,
-          durationInMilliseconds: 750,
+          durationInMilliseconds: 650,
           opaque: true,
           barrierDismissible: false);
     },
@@ -68,8 +68,9 @@ class AppRouter extends _i2.RootStackRouter {
       return _i2.CustomPage<void>(
           routeData: routeData,
           child: _i5.ChatThreadScreen(chatId: args.chatId, key: args.key),
+          customRouteBuilder: _i5.ChatThreadScreen.route,
           transitionsBuilder: _i2.TransitionsBuilders.slideLeft,
-          durationInMilliseconds: 750,
+          durationInMilliseconds: 650,
           opaque: true,
           barrierDismissible: false);
     }

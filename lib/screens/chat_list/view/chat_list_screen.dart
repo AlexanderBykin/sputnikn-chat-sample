@@ -3,13 +3,13 @@ import 'package:chat_client_repository/chat_client_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:sputnikn_chatsample/core/themes/palette.dart';
+import 'package:sputnikn_chatsample/core/core.dart';
 import 'package:sputnikn_chatsample/route/app_router.gr.dart';
 import 'package:sputnikn_chatsample/screens/chat_list/bloc/chat_list_bloc.dart';
 import 'package:sputnikn_chatsample/screens/chat_list/models/models.dart';
 import 'package:sputnikn_chatsample/screens/chat_list/view/widgets/widgets.dart';
 
-class ChatListScreen extends StatefulWidget {
+class ChatListScreen extends StatefulWidget  {
   const ChatListScreen({
     Key? key,
   }) : super(key: key);
@@ -36,7 +36,8 @@ class ChatListScreen extends StatefulWidget {
   }
 }
 
-class _ChatListScreenState extends State<ChatListScreen> {
+class _ChatListScreenState extends State<ChatListScreen>
+    with LoadingOverlayMixin {
   @override
   void initState() {
     super.initState();
@@ -45,27 +46,37 @@ class _ChatListScreenState extends State<ChatListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: _appLabel(),
-        actions: [
-          IconButton(
-            onPressed: () {
-              AutoRouter.of(context).push(const ChatCreateScreenRoute());
+    return BlocListener<ChatListBloc, ChatListState>(
+      listenWhen: (prev, next) => prev.loadingStatus != next.loadingStatus,
+      listener: (context, state) {
+        if (state.loadingStatus == ChatListLoadingStatus.loading) {
+          showLoader(context);
+        } else {
+          hideLoader();
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: _appLabel(),
+          actions: [
+            IconButton(
+              onPressed: () {
+                AutoRouter.of(context).push(const ChatCreateScreenRoute());
+              },
+              icon: const Icon(Icons.add),
+            ),
+          ],
+        ),
+        body: Container(
+          color: Palette.color0,
+          child: BlocBuilder<ChatListBloc, ChatListState>(
+            buildWhen: (prev, next) => prev.rooms != next.rooms,
+            builder: (_, state) {
+              return (state.rooms.isEmpty)
+                  ? _emptyListContent()
+                  : _listContent(state.rooms);
             },
-            icon: const Icon(Icons.add),
           ),
-        ],
-      ),
-      body: Container(
-        color: Palette.color0,
-        child: BlocBuilder<ChatListBloc, ChatListState>(
-          buildWhen: (prev, next) => prev.rooms != next.rooms,
-          builder: (_, state) {
-            return (state.rooms.isEmpty)
-                ? _emptyListContent()
-                : _listContent(state.rooms);
-          },
         ),
       ),
     );

@@ -17,7 +17,7 @@ class ChatCreateState extends Equatable {
     this.title = '',
     this.avatar,
     this.members = const [],
-    this.selectedMemberIds = const {},
+    this.selectedMemberIds = const [],
     this.loadingStatus = ChatCreateLoadingStatus.success,
     this.chatCreateStatus = ChatCreateStatus.none,
     this.createdRoom,
@@ -26,7 +26,7 @@ class ChatCreateState extends Equatable {
   final String title;
   final String? avatar;
   final List<UserDetail> members;
-  final Set<String> selectedMemberIds;
+  final List<String> selectedMemberIds;
   final ChatCreateLoadingStatus loadingStatus;
   final ChatCreateStatus chatCreateStatus;
   final RoomDetail? createdRoom;
@@ -35,7 +35,7 @@ class ChatCreateState extends Equatable {
     String? title,
     String? avatar,
     List<UserDetail>? members,
-    Set<String>? selectedMemberIds,
+    List<String>? selectedMemberIds,
     ChatCreateLoadingStatus? loadingStatus,
     ChatCreateStatus? chatCreateStatus,
     RoomDetail? createdRoom,
@@ -59,5 +59,6 @@ class ChatCreateState extends Equatable {
         selectedMemberIds,
         loadingStatus,
         chatCreateStatus,
+        createdRoom,
       ];
 }

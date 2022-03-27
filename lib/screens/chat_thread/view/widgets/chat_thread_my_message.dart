@@ -32,7 +32,6 @@ class _ChatThreadMyMessageState extends State<ChatThreadMyMessage> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(">>> [$runtimeType] build");
     return InkWell(
       overlayColor: MaterialStateProperty.all(Colors.transparent),
       onLongPress: () {

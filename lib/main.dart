@@ -14,8 +14,8 @@ Future<void> main() async {
   final appDocs = await getApplicationDocumentsDirectory();
 
   const appConfig = AppConfig(
-    serverMediaUrl: 'http://192.168.0.101:8443/',
-    serverChatWsUrl: 'ws://192.168.0.101:8443/chat',
+    serverMediaUrl: 'http://192.168.1.74:8443/',
+    serverChatWsUrl: 'ws://192.168.1.74:8443/chat',
   );
 
   final mediaCacheManager = MediaCacheManager(

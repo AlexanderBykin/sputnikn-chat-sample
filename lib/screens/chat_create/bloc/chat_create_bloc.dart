@@ -13,6 +13,7 @@ class ChatCreateBloc extends Bloc<ChatCreateEvent, ChatCreateState> {
   })  : _chatClientRepository = chatClientRepository,
         super(const ChatCreateState()) {
     on<FetchUsersSubmitted>(_onFetchUsersSubmitted);
+    on<ChangeRoomNameSubmitted>(_onChangeRoomNameSubmitted);
     on<MemberChangeSelectionSubmitted>(_onMemberChangeSelectionSubmitted);
     on<CreateChatSubmitted>(_onCreateChatSubmitted);
   }
@@ -41,6 +42,13 @@ class ChatCreateBloc extends Bloc<ChatCreateEvent, ChatCreateState> {
     }
   }
 
+  void _onChangeRoomNameSubmitted(
+    ChangeRoomNameSubmitted event,
+    Emitter<ChatCreateState> emit,
+  ) {
+    emit(state.copyWith(title: event.roomName));
+  }
+
   void _onMemberChangeSelectionSubmitted(
     MemberChangeSelectionSubmitted event,
     Emitter<ChatCreateState> emit,
@@ -50,14 +58,15 @@ class ChatCreateBloc extends Bloc<ChatCreateEvent, ChatCreateState> {
     if (memberExists) {
       emit(
         state.copyWith(
-          selectedMemberIds: state.selectedMemberIds..add(event.member.userId),
+          selectedMemberIds: state.selectedMemberIds.toList()
+            ..removeWhere((e) => e == event.member.userId),
         ),
       );
     } else {
       emit(
         state.copyWith(
-          selectedMemberIds: state.selectedMemberIds
-            ..remove(event.member.userId),
+          selectedMemberIds: state.selectedMemberIds.toList()
+            ..add(event.member.userId),
         ),
       );
     }
@@ -67,14 +76,14 @@ class ChatCreateBloc extends Bloc<ChatCreateEvent, ChatCreateState> {
     CreateChatSubmitted event,
     Emitter<ChatCreateState> emit,
   ) async {
-    if (state.selectedMemberIds.length < 2) {
+    if (state.title.isEmpty || state.selectedMemberIds.length < 2) {
       return;
     }
     emit(state.copyWith(loadingStatus: ChatCreateLoadingStatus.loading));
     try {
       final result = await _chatClientRepository.createRoom(
-        title: event.title,
-        avatar: event.avatar,
+        title: state.title,
+        avatar: state.avatar,
         memberIds: state.selectedMemberIds.toList(),
       );
       emit(

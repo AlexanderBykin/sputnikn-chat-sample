@@ -41,6 +41,13 @@ class _ChatLoginScreenState extends State<ChatLoginScreen>
   final _passwordController = TextEditingController(text: '');
 
   @override
+  void initState() {
+    _loginController.text = context.read<ChatLoginBloc>().state.login;
+    _passwordController.text = context.read<ChatLoginBloc>().state.password;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
