@@ -17,4 +17,3 @@ More can be found [here](https://pub.dev/packages/json_serializable)
 ### Generators
 General: `flutter pub run build_runner build --delete-conflicting-outputs`<br>
 Gen localizations: `flutter gen-l10n`<br>
-Gen AppIcons: `flutter pub run flutter_launcher_icons:main`
