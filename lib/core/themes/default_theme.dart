@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'palette.dart';
+import 'package:sputnikn_chatsample/core/themes/palette.dart';
 
 class Themes {
   Themes._();
 
   static TextStyle get defaultTextStyle => const TextStyle(
         color: Palette.color5,
-        fontFamily: "Roboto",
+        fontFamily: 'Roboto',
         decorationThickness: 0.000001,
       );
 
@@ -19,23 +19,21 @@ class Themes {
     return ThemeData.from(
       colorScheme: const ColorScheme.dark(
         primary: Palette.color0,
-        primaryVariant: Palette.color0,
         secondary: Palette.color5,
-        secondaryVariant: Palette.color5,
         background: Palette.color0,
       ),
       textTheme: TextTheme(
-        bodyText1: defaultTextStyle,
-        bodyText2: defaultTextStyle,
-        headline1: defaultTextStyle,
-        headline2: defaultTextStyle,
-        headline3: defaultTextStyle,
-        headline4: defaultTextStyle,
-        headline5: defaultTextStyle,
-        headline6: defaultTextStyle,
-        subtitle1: defaultTextStyle,
-        subtitle2: defaultTextStyle,
-        caption: defaultTextStyle,
+        bodyLarge: defaultTextStyle,
+        bodyMedium: defaultTextStyle,
+        displayLarge: defaultTextStyle,
+        displayMedium: defaultTextStyle,
+        displaySmall: defaultTextStyle,
+        headlineMedium: defaultTextStyle,
+        headlineSmall: defaultTextStyle,
+        titleLarge: defaultTextStyle,
+        titleMedium: defaultTextStyle,
+        titleSmall: defaultTextStyle,
+        bodySmall: defaultTextStyle,
       ),
     ).copyWith(
       textSelectionTheme: const TextSelectionThemeData(
@@ -48,7 +46,7 @@ class Themes {
       appBarTheme: const AppBarTheme(
         elevation: 0,
         backgroundColor: Palette.color0,
-      )
+      ),
     );
   }
 }

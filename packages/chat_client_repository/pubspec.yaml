@@ -4,23 +4,20 @@ version: 1.0.0+1
 publish_to: none
 
 environment:
-  sdk: ">=2.16.0 <3.0.0"
+  sdk: ">=3.1.5 <4.0.0"
 
 dependencies:
-  equatable: ^2.0.3
-  json_annotation: ^4.4.0
+  equatable: ^2.0.5
+  json_annotation: ^4.8.1
 
   # chat SDK client
   sputnikn_chat_client:
     path: ../../../sputnikn-chat-client
-    #git:
-    #  url: https://github.com/AlexShniperson-INO/sputnikn_chat_client
-    #  ref: feature/queue
 
 dev_dependencies:
-  build_runner: ^2.1.8
-  json_serializable: ^6.1.5
-  coverage: ^1.2.0
-  mocktail: ^0.3.0
-  test: ^1.20.2
-  very_good_analysis: ^2.4.0
+  build_runner: ^2.4.6
+  json_serializable: ^6.7.1
+  coverage: ^1.7.1
+  mocktail: ^1.0.1
+  test: ^1.24.9
+  very_good_analysis: ^5.1.0
